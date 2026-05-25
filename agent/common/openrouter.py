@@ -73,7 +73,7 @@ class OpenRouterClient:
             api_key=api_key,
             base_url=base_url,
             default_headers={
-                "HTTP-Referer": "https://github.com/justinkok28/project-ouroboros-oss",
+                "HTTP-Referer": "https://github.com/justinkok28/Ouroboros",
                 "X-Title": "Project Ouroboros",
             },
         )

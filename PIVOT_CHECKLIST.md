@@ -35,7 +35,7 @@ You now have a permanent reference. You can read your old Bicep templates and KQ
 ### Step 2 — Create the new GitHub repo (2 min)
 
 In the GitHub UI:
-- Repository name: `project-ouroboros-oss` (or `project-ouroboros` if you want the cleaner name and the archive holds the suffix)
+- Repository name: `Ouroboros` (or `project-ouroboros` if you want the cleaner name and the archive holds the suffix)
 - Public
 - Add a README (uncheck — we have our own)
 - License: MIT
@@ -47,13 +47,13 @@ Do **not** initialize it. We're pushing a populated tree.
 
 ```bash
 cd ~/work
-tar -xzf project-ouroboros-oss-skeleton.tar.gz
-cd project-ouroboros-oss
+tar -xzf Ouroboros-skeleton.tar.gz
+cd Ouroboros
 git init
 git add .
 git commit -m "feat: initial OSS skeleton (pivot from Azure)"
 git branch -M main
-git remote add origin git@github.com:justinkok28/project-ouroboros-oss.git
+git remote add origin git@github.com:justinkok28/Ouroboros.git
 git push -u origin main
 ```
 
@@ -164,7 +164,7 @@ If you provisioned any **Azure resources** (resource group, Sentinel workspace, 
 You are ready to start Week 2 when:
 
 - [ ] Old Azure repo is archived (Path A) or rebranded (Path B)
-- [ ] New `project-ouroboros-oss` repo is on GitHub
+- [ ] New `Ouroboros` repo is on GitHub
 - [ ] GitHub Pages is set to build from Actions, and the site builds green on first push
 - [ ] CI workflow runs and passes on the empty skeleton
 - [ ] OpenRouter account exists, API key is in `.env`, spend cap is set

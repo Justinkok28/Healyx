@@ -2,8 +2,8 @@
 
 > A self-improving purple-team SOC lab on Oracle Cloud Free Tier, built entirely with open source tooling. Red attacks, blue detects, the triage agent proposes tuning, the rules sharpen, and the red side adapts. The cycle is the point.
 
-[![CI](https://github.com/justinkok28/project-ouroboros-oss/actions/workflows/ci.yml/badge.svg)](https://github.com/justinkok28/project-ouroboros-oss/actions/workflows/ci.yml)
-[![Docs](https://img.shields.io/badge/docs-site-blue)](https://justinkok28.github.io/project-ouroboros-oss/)
+[![CI](https://github.com/justinkok28/Ouroboros/actions/workflows/ci.yml/badge.svg)](https://github.com/justinkok28/Ouroboros/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-site-blue)](https://justinkok28.github.io/Ouroboros/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 A solo portfolio project modeling **Halcyon Care Pte Ltd**, a fictional 25-person Singaporean healthcare-SaaS, and the SOC defending it. Built around **Wazuh + Keycloak + Grafana/Loki**, with two custom AI agents (red-team adversary emulator + triage agent) and a deliberately attackable AI booking assistant ("Sage") embedded in the public web app.
@@ -48,8 +48,8 @@ Both agents talk to OpenRouter using the OpenAI-compatible API. Default model is
 ## Quick start
 
 ```bash
-git clone https://github.com/justinkok28/project-ouroboros-oss.git
-cd project-ouroboros-oss
+git clone https://github.com/justinkok28/Ouroboros.git
+cd Ouroboros
 cp .env.example .env
 # fill in OPENROUTER_API_KEY, KEYCLOAK_ADMIN_PASSWORD, WAZUH_API_PASSWORD
 make up

@@ -49,5 +49,5 @@ triage.{$PUBLIC_DOMAIN} {
 
 # Docs site is served by GitHub Pages; this is just a redirect helper
 docs.{$PUBLIC_DOMAIN} {
-    redir https://justinkok28.github.io/project-ouroboros-oss/ permanent
+    redir https://justinkok28.github.io/Ouroboros/ permanent
 }

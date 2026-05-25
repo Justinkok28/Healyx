@@ -40,6 +40,6 @@ sudo snap install yq
 echo
 echo "=== DONE — please log out and back in (group membership) ==="
 echo "Then:"
-echo "  git clone https://github.com/justinkok28/project-ouroboros-oss.git"
-echo "  cd project-ouroboros-oss && cp .env.example .env && nano .env"
+echo "  git clone https://github.com/justinkok28/Ouroboros.git"
+echo "  cd Ouroboros && cp .env.example .env && nano .env"
 echo "  make up"

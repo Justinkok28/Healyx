@@ -43,7 +43,7 @@ This is the open-source pivot of an earlier Azure version (Sentinel + Entra ID).
 ## Where things live
 
 ```
-project-ouroboros-oss/
+Ouroboros/
 ├── CLAUDE.md                  ← you are here
 ├── README.md                  ← public-facing project overview
 ├── PIVOT_FROM_AZURE.md        ← migration guide from the Azure version

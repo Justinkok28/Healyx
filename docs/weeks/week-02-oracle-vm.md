@@ -108,8 +108,8 @@ dig +short auth.your-domain.example
 
 ```bash
 cd ~
-git clone https://github.com/justinkok28/project-ouroboros-oss.git
-cd project-ouroboros-oss
+git clone https://github.com/justinkok28/Ouroboros.git
+cd Ouroboros
 cp .env.example .env
 
 # Edit .env — at minimum: PUBLIC_DOMAIN, ACME_EMAIL, OPENROUTER_API_KEY,
