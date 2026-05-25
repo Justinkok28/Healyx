@@ -116,3 +116,47 @@ make docs-serve          # MkDocs local preview
 ## Contact / context
 
 Solo project. The user is a security professional building a portfolio piece for SOC / detection engineering / AI security roles. Singapore-based (timezone matters for cron schedules — use SGT / `Asia/Singapore`).
+## Obsidian vault — mandatory session notes
+
+There is an Obsidian vault at `/mnt/c/Users/justo/Documents/Ouroboros/`.
+This is the persistent memory for this project across Claude Code sessions.
+
+### At the START of every session
+
+Read these in order, before doing anything else:
+1. `/mnt/c/Users/justo/Documents/Ouroboros/_index.md`
+2. The most recent file in `/mnt/c/Users/justo/Documents/Ouroboros/Sessions/`
+3. Any open week note in `/mnt/c/Users/justo/Documents/Ouroboros/Weekly/`
+
+Then summarize where we are and what's next. Don't run commands or write
+files until I confirm the context is right.
+
+### At the END of every session
+
+When I say anything that signals we're winding down — "wrap up", "we're done",
+"thanks", "that's all", "ok bye", or when I exit — you MUST do these three
+things before the session ends. Do not ask permission. Just do them.
+
+1. Write a new file to `/mnt/c/Users/justo/Documents/Ouroboros/Sessions/`
+   - Filename: `YYYY-MM-DD-HHMM-short-topic.md` (use today's date in SGT)
+   - Sections: What we did | Decisions | Open threads | Next session starts with
+   - Be concise: 3–5 bullets per section, not paragraphs
+
+2. Append one line to `/mnt/c/Users/justo/Documents/Ouroboros/_index.md` under
+   the "Sessions" heading, format: `- YYYY-MM-DD: short summary [[YYYY-MM-DD-HHMM-short-topic]]`
+
+3. If we made an architectural decision, hit a notable failure, or
+   discovered a reusable pattern this session, ALSO write a separate note to:
+   - Decisions: `/mnt/c/Users/justo/Documents/Ouroboros/Decisions/`
+   - Mistakes: `/mnt/c/Users/justo/Documents/Ouroboros/Mistakes/`
+   - Patterns: `/mnt/c/Users/justo/Documents/Ouroboros/Patterns/`
+
+### Note style
+
+- Use plain markdown. No fancy formatting.
+- Use [[wikilinks]] when referring to other vault notes.
+- Keep notes terse. The vault is a memory aid, not a journal.
+- Be honest about what didn't work. Mistakes notes are the most valuable.
+
+This is not optional. These notes are how the project survives gaps between
+sessions. Verbose chat responses help no one; thorough vault notes help future-me.
