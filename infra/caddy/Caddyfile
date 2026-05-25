@@ -1,0 +1,53 @@
+# Caddyfile — automatic HTTPS for every subdomain
+#
+# {$PUBLIC_DOMAIN} is filled in from .env at compose start.
+
+{
+    email {$ACME_EMAIL}
+}
+
+# Apex domain → static landing page (placeholder until Week 6)
+{$PUBLIC_DOMAIN} {
+    respond "Project Ouroboros — lab is up. See https://docs.{$PUBLIC_DOMAIN}/" 200
+}
+
+# Wazuh dashboard
+wazuh.{$PUBLIC_DOMAIN} {
+    reverse_proxy https://wazuh-dashboard:5601 {
+        transport http {
+            tls
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+# Keycloak
+auth.{$PUBLIC_DOMAIN} {
+    reverse_proxy keycloak:8080
+}
+
+# Grafana
+grafana.{$PUBLIC_DOMAIN} {
+    reverse_proxy grafana:3000
+}
+
+# Sage booking chatbot (the deliberately vulnerable target)
+booking.{$PUBLIC_DOMAIN} {
+    reverse_proxy sage:8000
+}
+
+# Triage agent webhook (path-restricted; Wazuh calls this)
+triage.{$PUBLIC_DOMAIN} {
+    @webhook path /webhook/*
+    handle @webhook {
+        reverse_proxy triage-agent:8001
+    }
+    handle {
+        respond "not found" 404
+    }
+}
+
+# Docs site is served by GitHub Pages; this is just a redirect helper
+docs.{$PUBLIC_DOMAIN} {
+    redir https://justinkok28.github.io/project-ouroboros-oss/ permanent
+}

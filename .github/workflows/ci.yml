@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.11"
+      - name: Install ruff
+        run: uv pip install --system ruff
+      - name: ruff check
+        run: ruff check agent/ scripts/ chatbot/sage/
+      - name: ruff format --check
+        run: ruff format --check agent/ scripts/ chatbot/sage/
+
+  test:
+    name: Test (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          uv pip install --system -r agent/requirements.txt
+          uv pip install --system -r agent/requirements-dev.txt
+      - name: pytest
+        env:
+          # CI uses a fake key; live API calls are skipped via @pytest.mark.live
+          OPENROUTER_API_KEY: sk-or-test-fake-key
+          OPENROUTER_BASE_URL: https://openrouter.ai/api/v1
+          TRIAGE_WEBHOOK_TOKEN: test-token
+        run: cd agent && pytest -v --tb=short
+
+  validate-detections:
+    name: Validate Sigma detections
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.11"
+      - name: Install pySigma + sigma-cli
+        run: |
+          uv pip install --system pysigma sigma-cli pysigma-backend-elasticsearch pysigma-backend-splunk
+      - name: Validate Sigma syntax
+        run: |
+          if [ -d detections/sigma ] && [ "$(ls -A detections/sigma 2>/dev/null)" ]; then
+            sigma check detections/sigma/ || exit 1
+          else
+            echo "No Sigma rules yet — skipping."
+          fi
+
+  docker-build:
+    name: Docker build (smoke test)
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build redteam agent image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./agent
+          file: ./agent/redteam/Dockerfile
+          push: false
+          tags: ouroboros-redteam:ci
+      - name: Build triage agent image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./agent
+          file: ./agent/triage/Dockerfile
+          push: false
+          tags: ouroboros-triage:ci
+      - name: Build sage chatbot image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./chatbot/sage
+          push: false
+          tags: ouroboros-sage:ci
+
+  compose-config:
+    name: Validate docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render .env from example
+        run: cp .env.example .env
+      - name: docker compose config
+        run: cd infra && docker compose --env-file ../.env config -q

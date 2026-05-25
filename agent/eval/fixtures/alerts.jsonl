@@ -1,0 +1,1 @@
+{"id":"sample-1","timestamp":"2026-02-01T10:00:00Z","rule":{"id":100001,"description":"Sample","level":7},"agent":{"id":"001"},"data":{"action":"login_error"},"_scenario_for_eval":"mfa_fatigue"}

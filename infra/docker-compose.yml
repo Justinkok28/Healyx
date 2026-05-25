@@ -1,0 +1,188 @@
+# Project Ouroboros — full stack docker-compose
+#
+# Tuned for Oracle Ampere A1 free tier (4 OCPU / 24 GB RAM).
+# All services start by default; comment any out you're not using yet.
+#
+# `make up` runs this with `--env-file ../.env`.
+
+name: ouroboros
+
+networks:
+  ouroboros:
+    driver: bridge
+
+volumes:
+  wazuh_indexer_data:
+  wazuh_manager_data:
+  wazuh_dashboard_data:
+  keycloak_db_data:
+  loki_data:
+  grafana_data:
+  caddy_data:
+  caddy_config:
+
+services:
+
+  # ----- Reverse proxy + automatic TLS -----
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - PUBLIC_DOMAIN=${PUBLIC_DOMAIN}
+      - ACME_EMAIL=${ACME_EMAIL}
+    networks: [ouroboros]
+
+  # ----- Wazuh SIEM (manager + indexer + dashboard) -----
+  wazuh-indexer:
+    image: wazuh/wazuh-indexer:4.9.2
+    container_name: wazuh-indexer
+    restart: unless-stopped
+    environment:
+      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "INDEXER_PASSWORD=${WAZUH_INDEXER_PASSWORD}"
+    ulimits:
+      memlock: { soft: -1, hard: -1 }
+      nofile: { soft: 65536, hard: 65536 }
+    volumes:
+      - wazuh_indexer_data:/var/lib/wazuh-indexer
+    networks: [ouroboros]
+
+  wazuh-manager:
+    image: wazuh/wazuh-manager:4.9.2
+    container_name: wazuh-manager
+    restart: unless-stopped
+    depends_on: [wazuh-indexer]
+    environment:
+      - "INDEXER_URL=https://wazuh-indexer:9200"
+      - "INDEXER_USERNAME=admin"
+      - "INDEXER_PASSWORD=${WAZUH_INDEXER_PASSWORD}"
+      - "API_USERNAME=${WAZUH_API_USER}"
+      - "API_PASSWORD=${WAZUH_API_PASSWORD}"
+    volumes:
+      - wazuh_manager_data:/var/ossec/data
+      - ../detections/wazuh-rules:/var/ossec/etc/rules/custom:ro
+      - ./wazuh/integrations/triage-webhook.sh:/var/ossec/integrations/triage-webhook:ro
+    networks: [ouroboros]
+
+  wazuh-dashboard:
+    image: wazuh/wazuh-dashboard:4.9.2
+    container_name: wazuh-dashboard
+    restart: unless-stopped
+    depends_on: [wazuh-indexer, wazuh-manager]
+    environment:
+      - "INDEXER_USERNAME=admin"
+      - "INDEXER_PASSWORD=${WAZUH_INDEXER_PASSWORD}"
+      - "WAZUH_API_URL=https://wazuh-manager"
+      - "DASHBOARD_USERNAME=kibanaserver"
+      - "DASHBOARD_PASSWORD=${WAZUH_DASHBOARD_PASSWORD}"
+    volumes:
+      - wazuh_dashboard_data:/usr/share/wazuh-dashboard/data
+    networks: [ouroboros]
+
+  # ----- Keycloak IdP -----
+  keycloak-db:
+    image: postgres:16-alpine
+    container_name: keycloak-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+    volumes:
+      - keycloak_db_data:/var/lib/postgresql/data
+    networks: [ouroboros]
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    container_name: keycloak
+    restart: unless-stopped
+    depends_on: [keycloak-db]
+    command: ["start", "--optimized", "--hostname-strict=false"]
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_PROXY: edge
+      KC_HOSTNAME: auth.${PUBLIC_DOMAIN}
+      KC_HOSTNAME_STRICT: "false"
+      KC_HEALTH_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
+      KC_LOG_LEVEL: INFO
+    networks: [ouroboros]
+
+  # ----- Observability (Loki + Grafana) -----
+  loki:
+    image: grafana/loki:3.2.0
+    container_name: loki
+    restart: unless-stopped
+    command: ["-config.file=/etc/loki/local-config.yaml"]
+    volumes:
+      - loki_data:/loki
+      - ./loki/loki-config.yml:/etc/loki/local-config.yaml:ro
+    networks: [ouroboros]
+
+  grafana:
+    image: grafana/grafana-oss:11.3.0
+    container_name: grafana
+    restart: unless-stopped
+    depends_on: [loki]
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      GF_SERVER_ROOT_URL: https://grafana.${PUBLIC_DOMAIN}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    networks: [ouroboros]
+
+  # ----- The vulnerable target chatbot -----
+  sage:
+    image: ouroboros-sage:dev
+    build:
+      context: ../chatbot/sage
+    container_name: sage
+    restart: unless-stopped
+    env_file: ../.env
+    environment:
+      - SAGE_MODEL=${SAGE_MODEL}
+    networks: [ouroboros]
+    depends_on: [keycloak]
+
+  # ----- The two agents -----
+  triage-agent:
+    image: ouroboros-triage:dev
+    build:
+      context: ../agent
+      dockerfile: triage/Dockerfile
+    container_name: triage-agent
+    restart: unless-stopped
+    env_file: ../.env
+    environment:
+      - LOKI_URL=http://loki:3100
+      - WAZUH_API_URL=https://wazuh-manager:55000
+    networks: [ouroboros]
+    depends_on: [loki, wazuh-manager]
+
+  # Red-team is intentionally run as a one-off (no `restart: always`).
+  # Use `docker compose run --rm redteam-agent run --scenario mfa_fatigue`
+  redteam-agent:
+    image: ouroboros-redteam:dev
+    build:
+      context: ../agent
+      dockerfile: redteam/Dockerfile
+    profiles: ["oneshot"]
+    env_file: ../.env
+    environment:
+      - KEYCLOAK_URL=http://keycloak:8080
+    networks: [ouroboros]

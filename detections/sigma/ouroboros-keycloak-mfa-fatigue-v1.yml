@@ -1,0 +1,32 @@
+title: Keycloak MFA Fatigue Pattern
+id: ouroboros-keycloak-mfa-fatigue-v1
+status: experimental
+description: |
+  Detects MFA fatigue: many LOGIN_ERROR events for the same user within a short window,
+  optionally followed by a successful LOGIN. Aligned with UNC3944 / Scattered Spider TTP.
+references:
+  - https://attack.mitre.org/techniques/T1621/
+  - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-320a
+author: Project Ouroboros
+date: 2026/01/15
+modified: 2026/01/15
+tags:
+  - attack.credential_access
+  - attack.t1621
+  - attack.t1078.004
+  - actor.unc3944
+logsource:
+  product: keycloak
+  service: events
+detection:
+  failures:
+    type: 'LOGIN_ERROR'
+  selection_threshold:
+    type: 'LOGIN_ERROR'
+    realmId: 'halcyon-care'
+  timeframe: 5m
+  condition: failures | count() by userId > 5
+falsepositives:
+  - Real user forgetting password during password rotation campaigns
+  - Authenticated load testing
+level: high

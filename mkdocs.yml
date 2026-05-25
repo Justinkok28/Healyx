@@ -1,0 +1,80 @@
+site_name: Project Ouroboros (OSS)
+site_description: A self-improving purple-team SOC lab on Oracle Cloud + open source.
+site_url: https://justinkok28.github.io/project-ouroboros-oss/
+repo_url: https://github.com/justinkok28/project-ouroboros-oss
+repo_name: project-ouroboros-oss
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+    - search.share
+
+plugins:
+  - search
+  - mermaid2
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Scope: scope.md
+  - CTI:
+      - Scattered Spider: cti/scattered-spider.md
+  - Weekly playbooks:
+      - "Week 1 — Bootstrap": weeks/week-01-bootstrap.md
+      - "Week 2 — Oracle VM": weeks/week-02-oracle-vm.md
+      - "Week 3 — Wazuh": weeks/week-03-wazuh.md
+      - "Week 4 — Keycloak": weeks/week-04-keycloak.md
+      - "Week 5 — Grafana/Loki": weeks/week-05-grafana-loki.md
+      - "Week 6 — Sage chatbot": weeks/week-06-victim-app.md
+      - "Week 7 — Sigma detections": weeks/week-07-sigma-detections.md
+      - "Week 8 — Red agent": weeks/week-08-red-agent.md
+      - "Week 9 — Triage agent": weeks/week-09-triage-agent.md
+      - "Week 10 — Sage defenses": weeks/week-10-chatbot-defenses.md
+      - "Week 11 — Attack scenarios": weeks/week-11-attacks.md
+      - "Week 12 — Feedback loop": weeks/week-12-feedback-loop.md
+      - "Week 13 — Eval harness": weeks/week-13-eval.md
+      - "Week 14 — APT41": weeks/week-14-apt41.md
+      - "Week 15 — Writeups": weeks/week-15-writeups.md
+      - "Week 16 — Portfolio polish": weeks/week-16-portfolio.md
