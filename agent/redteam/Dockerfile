@@ -10,11 +10,11 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
 COPY . /app/
-RUN mkdir -p /var/log/ouroboros
+RUN mkdir -p /var/log/healyx
 
-RUN useradd --create-home --shell /bin/bash ouroboros && \
-    chown -R ouroboros:ouroboros /var/log/ouroboros /app
-USER ouroboros
+RUN useradd --create-home --shell /bin/bash healyx && \
+    chown -R healyx:healyx /var/log/healyx /app
+USER healyx
 
 ENTRYPOINT ["python", "-m", "redteam.main"]
 CMD ["--help"]

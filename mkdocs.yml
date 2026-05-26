@@ -1,8 +1,8 @@
-site_name: Project Ouroboros (OSS)
+site_name: Project Healyx (OSS)
 site_description: A self-improving purple-team SOC lab on Oracle Cloud + open source.
-site_url: https://justinkok28.github.io/Ouroboros/
-repo_url: https://github.com/justinkok28/Ouroboros
-repo_name: Ouroboros
+site_url: https://justinkok28.github.io/Healyx/
+repo_url: https://github.com/justinkok28/Healyx
+repo_name: Healyx
 
 theme:
   name: material

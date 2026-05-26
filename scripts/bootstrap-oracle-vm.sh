@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Bootstrap a fresh Oracle Ubuntu 24.04 ARM VM for Project Ouroboros.
+# Bootstrap a fresh Oracle Ubuntu 24.04 ARM VM for Project Healyx.
 # Run as the default ubuntu user. Reboots once partway through.
 #
 # Usage:  curl ... | bash   OR   ./bootstrap-oracle-vm.sh
@@ -31,7 +31,7 @@ sudo iptables -F INPUT
 sudo netfilter-persistent save
 
 echo "=== 5. sysctl tweaks for Wazuh indexer ==="
-echo "vm.max_map_count=262144" | sudo tee /etc/sysctl.d/99-ouroboros.conf
+echo "vm.max_map_count=262144" | sudo tee /etc/sysctl.d/99-healyx.conf
 sudo sysctl --system
 
 echo "=== 6. install yq (for YAML editing in shell) ==="
@@ -40,6 +40,6 @@ sudo snap install yq
 echo
 echo "=== DONE — please log out and back in (group membership) ==="
 echo "Then:"
-echo "  git clone https://github.com/justinkok28/Ouroboros.git"
-echo "  cd Ouroboros && cp .env.example .env && nano .env"
+echo "  git clone https://github.com/justinkok28/Healyx.git"
+echo "  cd Healyx && cp .env.example .env && nano .env"
 echo "  make up"

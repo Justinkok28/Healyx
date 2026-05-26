@@ -48,7 +48,7 @@ The agent reports to the manager on port 1514. In the dashboard → Agents, you 
 
 ```bash
 # Touch a file inside a monitored directory — default syscheck watches /etc
-sudo touch /etc/ouroboros-test-file
+sudo touch /etc/healyx-test-file
 # Wait ~30s — Wazuh's syscheck scans periodically
 ```
 

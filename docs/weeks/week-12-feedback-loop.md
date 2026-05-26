@@ -22,7 +22,7 @@ In `agent/triage/main.py`, after persisting the incident, also append to the tun
 
 ```python
 if result.suggested_tuning is not None:
-    queue_path = Path("/var/log/ouroboros/tuning-queue.jsonl")
+    queue_path = Path("/var/log/healyx/tuning-queue.jsonl")
     queue_path.parent.mkdir(parents=True, exist_ok=True)
     with queue_path.open("a") as f:
         f.write(json.dumps({
@@ -52,7 +52,7 @@ The planner now has signal for what's worth re-attacking.
 Add a section to the planner prompt:
 
 > Recent tuning activity:
-> - ouroboros-keycloak-mfa-fatigue-v1: tuned 2 days ago (narrowed threshold)
+> - healyx-keycloak-mfa-fatigue-v1: tuned 2 days ago (narrowed threshold)
 >
 > If a rule has been recently tuned, prioritize re-running the corresponding scenario to test whether the tuning held.
 

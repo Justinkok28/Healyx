@@ -44,7 +44,7 @@ Add to `infra/docker-compose.yml` (next to `loki`):
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
     command: run --server.http.listen-addr=0.0.0.0:12345 /etc/alloy/config.alloy
-    networks: [ouroboros]
+    networks: [healyx]
     depends_on: [loki]
 ```
 

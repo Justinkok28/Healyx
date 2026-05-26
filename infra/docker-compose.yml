@@ -1,14 +1,14 @@
-# Project Ouroboros — full stack docker-compose
+# Project Healyx — full stack docker-compose
 #
 # Tuned for Oracle Ampere A1 free tier (4 OCPU / 24 GB RAM).
 # All services start by default; comment any out you're not using yet.
 #
 # `make up` runs this with `--env-file ../.env`.
 
-name: ouroboros
+name: healyx
 
 networks:
-  ouroboros:
+  healyx:
     driver: bridge
 
 volumes:
@@ -38,7 +38,7 @@ services:
     environment:
       - PUBLIC_DOMAIN=${PUBLIC_DOMAIN}
       - ACME_EMAIL=${ACME_EMAIL}
-    networks: [ouroboros]
+    networks: [healyx]
 
   # ----- Wazuh SIEM (manager + indexer + dashboard) -----
   wazuh-indexer:
@@ -53,7 +53,7 @@ services:
       nofile: { soft: 65536, hard: 65536 }
     volumes:
       - wazuh_indexer_data:/var/lib/wazuh-indexer
-    networks: [ouroboros]
+    networks: [healyx]
 
   wazuh-manager:
     image: wazuh/wazuh-manager:4.9.2
@@ -70,7 +70,7 @@ services:
       - wazuh_manager_data:/var/ossec/data
       - ../detections/wazuh-rules:/var/ossec/etc/rules/custom:ro
       - ./wazuh/integrations/triage-webhook.sh:/var/ossec/integrations/triage-webhook:ro
-    networks: [ouroboros]
+    networks: [healyx]
 
   wazuh-dashboard:
     image: wazuh/wazuh-dashboard:4.9.2
@@ -85,7 +85,7 @@ services:
       - "DASHBOARD_PASSWORD=${WAZUH_DASHBOARD_PASSWORD}"
     volumes:
       - wazuh_dashboard_data:/usr/share/wazuh-dashboard/data
-    networks: [ouroboros]
+    networks: [healyx]
 
   # ----- Keycloak IdP -----
   keycloak-db:
@@ -98,7 +98,7 @@ services:
       POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
     volumes:
       - keycloak_db_data:/var/lib/postgresql/data
-    networks: [ouroboros]
+    networks: [healyx]
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
@@ -119,7 +119,7 @@ services:
       KC_HEALTH_ENABLED: "true"
       KC_METRICS_ENABLED: "true"
       KC_LOG_LEVEL: INFO
-    networks: [ouroboros]
+    networks: [healyx]
 
   # ----- Observability (Loki + Grafana) -----
   loki:
@@ -130,7 +130,7 @@ services:
     volumes:
       - loki_data:/loki
       - ./loki/loki-config.yml:/etc/loki/local-config.yaml:ro
-    networks: [ouroboros]
+    networks: [healyx]
 
   grafana:
     image: grafana/grafana-oss:11.3.0
@@ -144,11 +144,11 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
-    networks: [ouroboros]
+    networks: [healyx]
 
   # ----- The vulnerable target chatbot -----
   sage:
-    image: ouroboros-sage:dev
+    image: healyx-sage:dev
     build:
       context: ../chatbot/sage
     container_name: sage
@@ -156,12 +156,12 @@ services:
     env_file: ../.env
     environment:
       - SAGE_MODEL=${SAGE_MODEL}
-    networks: [ouroboros]
+    networks: [healyx]
     depends_on: [keycloak]
 
   # ----- The two agents -----
   triage-agent:
-    image: ouroboros-triage:dev
+    image: healyx-triage:dev
     build:
       context: ../agent
       dockerfile: triage/Dockerfile
@@ -171,13 +171,13 @@ services:
     environment:
       - LOKI_URL=http://loki:3100
       - WAZUH_API_URL=https://wazuh-manager:55000
-    networks: [ouroboros]
+    networks: [healyx]
     depends_on: [loki, wazuh-manager]
 
   # Red-team is intentionally run as a one-off (no `restart: always`).
   # Use `docker compose run --rm redteam-agent run --scenario mfa_fatigue`
   redteam-agent:
-    image: ouroboros-redteam:dev
+    image: healyx-redteam:dev
     build:
       context: ../agent
       dockerfile: redteam/Dockerfile
@@ -185,4 +185,4 @@ services:
     env_file: ../.env
     environment:
       - KEYCLOAK_URL=http://keycloak:8080
-    networks: [ouroboros]
+    networks: [healyx]

@@ -99,7 +99,7 @@ def test_ground_truth_entry_minimal():
         outcome=AttackOutcome.EXECUTED,
         target="keycloak:halcyon-care:alice",
         mitre_techniques=["T1621"],
-        expected_alerts=["ouroboros-keycloak-mfa-fatigue-v1"],
+        expected_alerts=["healyx-keycloak-mfa-fatigue-v1"],
     )
     assert g.actor_emulated == "UNC3944"
 

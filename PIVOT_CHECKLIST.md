@@ -23,7 +23,7 @@ Path A is what the rest of this checklist assumes. Path B notes are at the botto
 ### Step 1 — Park the old repo (5 min)
 
 ```bash
-cd /path/to/project-ouroboros  # the Azure version
+cd /path/to/project-ouroboros-azure-archive  # the Azure version (now archived)
 git checkout -b azure-archive
 git push origin azure-archive
 # In GitHub UI: rename the repo to project-ouroboros-azure-archive
@@ -35,7 +35,7 @@ You now have a permanent reference. You can read your old Bicep templates and KQ
 ### Step 2 — Create the new GitHub repo (2 min)
 
 In the GitHub UI:
-- Repository name: `Ouroboros` (or `project-ouroboros` if you want the cleaner name and the archive holds the suffix)
+- Repository name: `Healyx` (or `project-healyx` if you want the cleaner name and the archive holds the suffix)
 - Public
 - Add a README (uncheck — we have our own)
 - License: MIT
@@ -47,13 +47,13 @@ Do **not** initialize it. We're pushing a populated tree.
 
 ```bash
 cd ~/work
-tar -xzf Ouroboros-skeleton.tar.gz
-cd Ouroboros
+tar -xzf Healyx-skeleton.tar.gz
+cd Healyx
 git init
 git add .
 git commit -m "feat: initial OSS skeleton (pivot from Azure)"
 git branch -M main
-git remote add origin git@github.com:justinkok28/Ouroboros.git
+git remote add origin git@github.com:justinkok28/Healyx.git
 git push -u origin main
 ```
 
@@ -164,7 +164,7 @@ If you provisioned any **Azure resources** (resource group, Sentinel workspace, 
 You are ready to start Week 2 when:
 
 - [ ] Old Azure repo is archived (Path A) or rebranded (Path B)
-- [ ] New `Ouroboros` repo is on GitHub
+- [ ] New `Healyx` repo is on GitHub
 - [ ] GitHub Pages is set to build from Actions, and the site builds green on first push
 - [ ] CI workflow runs and passes on the empty skeleton
 - [ ] OpenRouter account exists, API key is in `.env`, spend cap is set

@@ -33,7 +33,7 @@ The skeleton is in `chatbot/sage/`. The provided `app.py` is a starting point. E
 ```bash
 cd chatbot/sage
 # Edit app.py to add tools and seed data
-docker build -t ouroboros-sage:dev .
+docker build -t healyx-sage:dev .
 cd ../../infra
 docker compose up -d sage
 ```

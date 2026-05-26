@@ -10,7 +10,7 @@
 
 ## On the names
 
-- **Ouroboros** — the serpent eating its own tail. Names the project because the architecture *is* the loop: red attacks → blue detects → triage proposes tuning → detections sharpen → red adapts. The cycle is the deliverable.
+- **Healyx** — a portmanteau of *heal* and *helix*. Two ideas at once: the healthcare domain the lab models, and the double-helix shape of the red/blue feedback loop. Like DNA, two strands wind around each other — red attacks and blue detections — neither complete without the other, both rising together over time. The architecture *is* the helix: red attacks → blue detects → triage proposes tuning → detections sharpen → red adapts. Each turn ends a little higher than the last.
 - **Halcyon Care** — Halcyon is a mythological bird that calms the seas. Fitting for a healthtech maintaining peaceful operations for its clinics.
 
 ## Anchor threat actor

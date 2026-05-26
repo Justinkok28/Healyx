@@ -25,7 +25,7 @@ except ImportError:
     sys.exit(1)
 
 
-WAZUH_RULE_TEMPLATE = """<group name="ouroboros,{tags}">
+WAZUH_RULE_TEMPLATE = """<group name="healyx,{tags}">
   <rule id="{rule_id}" level="{level}">
     <if_sid>{parent_sid}</if_sid>
     <description>{description}</description>

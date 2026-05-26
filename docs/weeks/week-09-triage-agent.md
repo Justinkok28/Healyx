@@ -62,7 +62,7 @@ Then:
 2. Watch triage-agent logs — should see "triage start alert_id=..."
 3. Read the persisted incident:
    ```bash
-   docker compose exec triage-agent tail -n 1 /var/log/ouroboros/triage-incidents.jsonl | jq
+   docker compose exec triage-agent tail -n 1 /var/log/healyx/triage-incidents.jsonl | jq
    ```
 
 Inspect the JSON. Did the LLM:

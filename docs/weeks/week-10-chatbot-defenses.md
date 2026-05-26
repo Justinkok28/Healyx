@@ -68,7 +68,7 @@ For each layer, emit log lines in this shape:
 {"event": "defense_block", "layer": "regex", "session_id": "...", "input_hash": "...", "pattern": "ignore_previous_instructions", "ts": "..."}
 ```
 
-These structured logs feed into the Sigma rule `ouroboros-sage-prompt-injection-v1.yml` from Week 7.
+These structured logs feed into the Sigma rule `healyx-sage-prompt-injection-v1.yml` from Week 7.
 
 ## Done conditions
 

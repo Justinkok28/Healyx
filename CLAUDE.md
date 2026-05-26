@@ -4,7 +4,7 @@
 
 ## What this project is
 
-**Project Ouroboros (OSS edition)** — a self-improving purple-team SOC lab that runs entirely on an Oracle Cloud Always Free ARM VM using open source tooling. Red attacks, blue detects, the triage agent proposes detection tuning, the rules sharpen, the red agent's LLM planner adapts.
+**Project Healyx (OSS edition)** — a self-improving purple-team SOC lab that runs entirely on an Oracle Cloud Always Free ARM VM using open source tooling. Red attacks, blue detects, the triage agent proposes detection tuning, the rules sharpen, the red agent's LLM planner adapts.
 
 Modeling a fictional 25-person Singaporean healthtech, **Halcyon Care Pte Ltd**.
 
@@ -43,7 +43,7 @@ This is the open-source pivot of an earlier Azure version (Sentinel + Entra ID).
 ## Where things live
 
 ```
-Ouroboros/
+Healyx/
 ├── CLAUDE.md                  ← you are here
 ├── README.md                  ← public-facing project overview
 ├── PIVOT_FROM_AZURE.md        ← migration guide from the Azure version
@@ -118,15 +118,15 @@ make docs-serve          # MkDocs local preview
 Solo project. The user is a security professional building a portfolio piece for SOC / detection engineering / AI security roles. Singapore-based (timezone matters for cron schedules — use SGT / `Asia/Singapore`).
 ## Obsidian vault — mandatory session notes
 
-There is an Obsidian vault at `/mnt/c/Users/justo/Documents/Ouroboros/`.
+There is an Obsidian vault at `/mnt/c/Users/justo/Documents/Healyx/`.
 This is the persistent memory for this project across Claude Code sessions.
 
 ### At the START of every session
 
 Read these in order, before doing anything else:
-1. `/mnt/c/Users/justo/Documents/Ouroboros/_index.md`
-2. The most recent file in `/mnt/c/Users/justo/Documents/Ouroboros/Sessions/`
-3. Any open week note in `/mnt/c/Users/justo/Documents/Ouroboros/Weekly/`
+1. `/mnt/c/Users/justo/Documents/Healyx/_index.md`
+2. The most recent file in `/mnt/c/Users/justo/Documents/Healyx/Sessions/`
+3. Any open week note in `/mnt/c/Users/justo/Documents/Healyx/Weekly/`
 
 Then summarize where we are and what's next. Don't run commands or write
 files until I confirm the context is right.
@@ -137,19 +137,19 @@ When I say anything that signals we're winding down — "wrap up", "we're done",
 "thanks", "that's all", "ok bye", or when I exit — you MUST do these three
 things before the session ends. Do not ask permission. Just do them.
 
-1. Write a new file to `/mnt/c/Users/justo/Documents/Ouroboros/Sessions/`
+1. Write a new file to `/mnt/c/Users/justo/Documents/Healyx/Sessions/`
    - Filename: `YYYY-MM-DD-HHMM-short-topic.md` (use today's date in SGT)
    - Sections: What we did | Decisions | Open threads | Next session starts with
    - Be concise: 3–5 bullets per section, not paragraphs
 
-2. Append one line to `/mnt/c/Users/justo/Documents/Ouroboros/_index.md` under
+2. Append one line to `/mnt/c/Users/justo/Documents/Healyx/_index.md` under
    the "Sessions" heading, format: `- YYYY-MM-DD: short summary [[YYYY-MM-DD-HHMM-short-topic]]`
 
 3. If we made an architectural decision, hit a notable failure, or
    discovered a reusable pattern this session, ALSO write a separate note to:
-   - Decisions: `/mnt/c/Users/justo/Documents/Ouroboros/Decisions/`
-   - Mistakes: `/mnt/c/Users/justo/Documents/Ouroboros/Mistakes/`
-   - Patterns: `/mnt/c/Users/justo/Documents/Ouroboros/Patterns/`
+   - Decisions: `/mnt/c/Users/justo/Documents/Healyx/Decisions/`
+   - Mistakes: `/mnt/c/Users/justo/Documents/Healyx/Mistakes/`
+   - Patterns: `/mnt/c/Users/justo/Documents/Healyx/Patterns/`
 
 ### Note style
 

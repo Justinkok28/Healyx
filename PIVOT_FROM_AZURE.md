@@ -1,10 +1,10 @@
 # Pivot from Azure to Open Source
 
-This document explains why Project Ouroboros was rebuilt on open source tooling and exactly what changed.
+This document explains why Project Healyx was rebuilt on open source tooling and exactly what changed.
 
 ## Why pivot
 
-The original Project Ouroboros (Azure version) was finishing Week 1, Saturday — repo scaffolding done, no Azure resources provisioned yet. That timing made a pivot cheap. The reasons for the pivot:
+The original Project Healyx (Azure version) was finishing Week 1, Saturday — repo scaffolding done, no Azure resources provisioned yet. That timing made a pivot cheap. The reasons for the pivot:
 
 ### 1. Skill depth, not surface area
 
@@ -44,7 +44,7 @@ The conceptual project is unchanged:
 - **Secondary actor:** APT41 (week 14, for variety)
 - **Fictional target company:** Halcyon Care Pte Ltd (25-person Singaporean healthtech)
 - **Four centerpieces:** identity detection (ITDR/UEBA), incident investigation writeups, two AI agents, AI chatbot security
-- **The Ouroboros feedback loop:** red → detection → triage → tuning → red adapts
+- **The Healyx feedback loop:** red → detection → triage → tuning → red adapts
 - **Sage chatbot** as deliberately attackable AI target
 - **Five incident writeups** across identity, host, network, cloud, LLM-app categories
 - **16-week build arc**

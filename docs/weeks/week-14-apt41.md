@@ -28,8 +28,8 @@ Uses built-in OS tools (curl, python3, base64) to exfiltrate `/etc/passwd` over 
 
 Build the scenarios. Author two new Sigma rules:
 
-- `ouroboros-host-web-shell-drop-v1.yml` (file creation in a webroot with shell-like content)
-- `ouroboros-host-dns-exfil-v1.yml` (anomalous DNS query length / volume)
+- `healyx-host-web-shell-drop-v1.yml` (file creation in a webroot with shell-like content)
+- `healyx-host-dns-exfil-v1.yml` (anomalous DNS query length / volume)
 
 ## Sunday — CTI profile + attribution test
 

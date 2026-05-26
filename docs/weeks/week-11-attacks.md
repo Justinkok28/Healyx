@@ -28,7 +28,7 @@ client_uuid = httpx.get(f"{kc}/admin/realms/halcyon-care/clients?clientId=halcyo
 httpx.post(f"{kc}/admin/realms/halcyon-care/clients/{client_uuid}/client-secret", headers=auth)
 ```
 
-Expected alert: `ouroboros-keycloak-client-secret-add-v1` (you'll write this Sigma rule this week).
+Expected alert: `healyx-keycloak-client-secret-add-v1` (you'll write this Sigma rule this week).
 
 ### `cloud_storage_exfil`
 

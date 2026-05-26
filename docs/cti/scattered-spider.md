@@ -1,6 +1,6 @@
 # Scattered Spider (UNC3944)
 
-> Primary anchor threat actor for Project Ouroboros. All eight red-team scenarios emulate TTPs from this group.
+> Primary anchor threat actor for Project Healyx. All eight red-team scenarios emulate TTPs from this group.
 
 ## At a glance
 

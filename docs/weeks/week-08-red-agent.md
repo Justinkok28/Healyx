@@ -62,7 +62,7 @@ def run(params):
         "outcome": "executed" if bf_attempts > 0 else "error",
         "target": target,
         "mitre_techniques": ["T1595.001", "T1110.001"],
-        "expected_alerts": ["ouroboros-host-ssh-bf-v1"],
+        "expected_alerts": ["healyx-host-ssh-bf-v1"],
         "notes": f"nmap_rc={nmap_result.returncode} bf_attempts={bf_attempts}",
     }
 ```
@@ -105,7 +105,7 @@ def run(params):
         "outcome": "executed" if r.status_code == 201 else "error",
         "target": "keycloak:halcyon-care",
         "mitre_techniques": ["T1550.001", "T1098.003"],
-        "expected_alerts": ["ouroboros-keycloak-oauth-client-create-v1"],
+        "expected_alerts": ["healyx-keycloak-oauth-client-create-v1"],
     }
 ```
 

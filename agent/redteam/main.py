@@ -32,14 +32,14 @@ logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
 GROUND_TRUTH = Path(
     os.environ.get(
         "GROUND_TRUTH_LOG_PATH",
-        "/var/log/ouroboros/redteam-ground-truth.jsonl",
+        "/var/log/healyx/redteam-ground-truth.jsonl",
     )
 )
 PLANNER_MODEL = os.environ.get(
     "REDTEAM_PLANNER_MODEL", "nousresearch/hermes-3-llama-3.1-70b"
 )
 
-PLANNER_PROMPT = """You are the red-team planner for Project Ouroboros, a purple-team SOC lab.
+PLANNER_PROMPT = """You are the red-team planner for Project Healyx, a purple-team SOC lab.
 
 Your job: choose which UNC3944 attack scenarios to run this round, and how to vary them. You are NOT executing the attacks — you decide what should run; deterministic Python scripts then execute. You must respect the scenario inventory exactly.
 
@@ -160,7 +160,7 @@ def _read_recent_triage_summary(limit: int = 20) -> str:
     """Build a tiny digest of recent triage results for the planner."""
     incident_log = Path(
         os.environ.get(
-            "INCIDENT_LOG_PATH", "/var/log/ouroboros/triage-incidents.jsonl"
+            "INCIDENT_LOG_PATH", "/var/log/healyx/triage-incidents.jsonl"
         )
     )
     if not incident_log.exists():

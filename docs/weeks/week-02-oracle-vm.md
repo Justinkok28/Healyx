@@ -35,13 +35,13 @@ If you hit **Out of host capacity**:
 ssh ubuntu@<your-vm-ip>
 
 # Create your work user
-sudo adduser ouroboros
-sudo usermod -aG sudo ouroboros
-sudo mkdir /home/ouroboros/.ssh
-sudo cp /home/ubuntu/.ssh/authorized_keys /home/ouroboros/.ssh/
-sudo chown -R ouroboros:ouroboros /home/ouroboros/.ssh
-sudo chmod 700 /home/ouroboros/.ssh
-sudo chmod 600 /home/ouroboros/.ssh/authorized_keys
+sudo adduser healyx
+sudo usermod -aG sudo healyx
+sudo mkdir /home/healyx/.ssh
+sudo cp /home/ubuntu/.ssh/authorized_keys /home/healyx/.ssh/
+sudo chown -R healyx:healyx /home/healyx/.ssh
+sudo chmod 700 /home/healyx/.ssh
+sudo chmod 600 /home/healyx/.ssh/authorized_keys
 
 # Disable root + password SSH (already disabled by default on Oracle images; verify)
 sudo sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
@@ -50,7 +50,7 @@ sudo systemctl restart ssh
 
 # Test the new user works, then disconnect:
 exit
-ssh ouroboros@<your-vm-ip>
+ssh healyx@<your-vm-ip>
 ```
 
 ### Open ports — Oracle security list + ufw
@@ -81,10 +81,10 @@ Layer 2: in Oracle console, find your VCN's Security List and add ingress rules 
 ```bash
 # Official Docker convenience installer (fine for a single-host lab)
 curl -fsSL https://get.docker.com | sudo sh
-sudo usermod -aG docker ouroboros
+sudo usermod -aG docker healyx
 # Re-login or `newgrp docker` to pick up the group
 exit
-ssh ouroboros@<your-vm-ip>
+ssh healyx@<your-vm-ip>
 
 docker --version
 docker compose version  # should be v2 (plugin-based)
@@ -108,8 +108,8 @@ dig +short auth.your-domain.example
 
 ```bash
 cd ~
-git clone https://github.com/justinkok28/Ouroboros.git
-cd Ouroboros
+git clone https://github.com/justinkok28/Healyx.git
+cd Healyx
 cp .env.example .env
 
 # Edit .env — at minimum: PUBLIC_DOMAIN, ACME_EMAIL, OPENROUTER_API_KEY,
@@ -124,7 +124,7 @@ docker compose logs -f caddy
 
 Caddy will hit Let's Encrypt and provision certs on the fly. The first request can take 30–60 seconds while ACME runs.
 
-Visit `https://<your-domain>` — should respond with "Project Ouroboros — lab is up..."
+Visit `https://<your-domain>` — should respond with "Project Healyx — lab is up..."
 
 ## Done conditions
 

@@ -1,4 +1,4 @@
-# Project Ouroboros (OSS Edition)
+# Project Healyx (OSS Edition)
 
 > A self-improving purple-team SOC lab on Oracle Cloud Free Tier, built entirely with open source tooling.
 
@@ -59,4 +59,4 @@ A solo portfolio project modeling **Halcyon Care Pte Ltd**, a fictional 25-perso
 
 - New to the project? Read [Architecture](architecture.md) and [Scope](scope.md).
 - Starting a build session? Open the [weekly playbook](weeks/week-01-bootstrap.md) for the week you're on.
-- Migrating from the Azure version? See the [pivot guide](https://github.com/justinkok28/Ouroboros/blob/main/PIVOT_FROM_AZURE.md) in the repo root.
+- Migrating from the Azure version? See the [pivot guide](https://github.com/justinkok28/Healyx/blob/main/PIVOT_FROM_AZURE.md) in the repo root.

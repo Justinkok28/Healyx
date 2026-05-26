@@ -31,14 +31,14 @@ from agent.triage.sanitize import sanitize_alert
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
 
-app = FastAPI(title="Ouroboros Triage Agent", version="0.1.0")
+app = FastAPI(title="Healyx Triage Agent", version="0.1.0")
 
 # Load the triage prompt from disk at startup (faster + easier to edit)
 PROMPT_PATH = Path(__file__).parent / "prompts" / "triage_v1.txt"
 TRIAGE_PROMPT = PROMPT_PATH.read_text(encoding="utf-8")
 
 INCIDENT_LOG = Path(
-    os.environ.get("INCIDENT_LOG_PATH", "/var/log/ouroboros/triage-incidents.jsonl")
+    os.environ.get("INCIDENT_LOG_PATH", "/var/log/healyx/triage-incidents.jsonl")
 )
 WEBHOOK_TOKEN = os.environ["TRIAGE_WEBHOOK_TOKEN"]
 TRIAGE_MODEL = os.environ.get(

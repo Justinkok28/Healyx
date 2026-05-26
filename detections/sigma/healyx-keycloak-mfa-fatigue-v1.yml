@@ -1,5 +1,5 @@
 title: Keycloak MFA Fatigue Pattern
-id: ouroboros-keycloak-mfa-fatigue-v1
+id: healyx-keycloak-mfa-fatigue-v1
 status: experimental
 description: |
   Detects MFA fatigue: many LOGIN_ERROR events for the same user within a short window,
@@ -7,7 +7,7 @@ description: |
 references:
   - https://attack.mitre.org/techniques/T1621/
   - https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-320a
-author: Project Ouroboros
+author: Project Healyx
 date: 2026/01/15
 modified: 2026/01/15
 tags:

@@ -10,12 +10,12 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
 COPY . /app/
-RUN mkdir -p /var/log/ouroboros
+RUN mkdir -p /var/log/healyx
 
 # Drop to non-root
-RUN useradd --create-home --shell /bin/bash ouroboros && \
-    chown -R ouroboros:ouroboros /var/log/ouroboros /app
-USER ouroboros
+RUN useradd --create-home --shell /bin/bash healyx && \
+    chown -R healyx:healyx /var/log/healyx /app
+USER healyx
 
 EXPOSE 8001
 

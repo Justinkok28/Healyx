@@ -1,1 +1,1 @@
-"""Project Ouroboros agents."""
+"""Project Healyx agents."""

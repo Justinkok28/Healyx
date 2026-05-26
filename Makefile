@@ -1,4 +1,4 @@
-# Project Ouroboros — Makefile
+# Project Healyx — Makefile
 # All operations go through here so Claude Code, CI, and humans all use the same commands.
 
 .PHONY: help up down restart logs ps test lint format compile-rules \

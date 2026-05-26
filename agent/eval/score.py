@@ -29,7 +29,7 @@ logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"))
 GROUND_TRUTH = Path(
     os.environ.get(
         "GROUND_TRUTH_LOG_PATH",
-        "/var/log/ouroboros/redteam-ground-truth.jsonl",
+        "/var/log/healyx/redteam-ground-truth.jsonl",
     )
 )
 METRICS_DIR = Path(__file__).parent.parent.parent / "metrics"
@@ -130,7 +130,7 @@ def main() -> None:
                 try:
                     result: TriageResult = client.chat_json(
                         [
-                            {"role": "system", "content": "You are the Ouroboros triage agent. Return TriageResult JSON."},
+                            {"role": "system", "content": "You are the Healyx triage agent. Return TriageResult JSON."},
                             {"role": "user", "content": f"Triage:\n{json.dumps(sanitized)}"},
                         ],
                         schema=TriageResult,

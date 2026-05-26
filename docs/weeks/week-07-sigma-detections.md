@@ -17,12 +17,12 @@ This is one of the biggest learning wins of the OSS pivot. Sentinel KQL only run
 
 Open `detections/sigma/` and create these six rules over the day:
 
-1. `ouroboros-keycloak-mfa-fatigue-v1.yml` — 5+ failed Keycloak `LOGIN_ERROR` events for same user within 5 min, followed by a `LOGIN` event
-2. `ouroboros-keycloak-oauth-client-create-v1.yml` — admin event `CREATE_CLIENT` for a client not on the allowlist
-3. `ouroboros-keycloak-admin-role-burst-v1.yml` — `ROLE_ASSIGNMENT` for an admin role followed by `ROLE_REVOKE` of the same role within 60 min
-4. `ouroboros-sage-prompt-injection-v1.yml` — Sage app log lines matching prompt-injection regex patterns
-5. `ouroboros-host-ssh-bf-v1.yml` — 10+ SSH auth failures from the same source IP in 5 minutes
-6. `ouroboros-host-suid-creation-v1.yml` — Wazuh syscheck reports a new SUID binary outside `/usr/bin`
+1. `healyx-keycloak-mfa-fatigue-v1.yml` — 5+ failed Keycloak `LOGIN_ERROR` events for same user within 5 min, followed by a `LOGIN` event
+2. `healyx-keycloak-oauth-client-create-v1.yml` — admin event `CREATE_CLIENT` for a client not on the allowlist
+3. `healyx-keycloak-admin-role-burst-v1.yml` — `ROLE_ASSIGNMENT` for an admin role followed by `ROLE_REVOKE` of the same role within 60 min
+4. `healyx-sage-prompt-injection-v1.yml` — Sage app log lines matching prompt-injection regex patterns
+5. `healyx-host-ssh-bf-v1.yml` — 10+ SSH auth failures from the same source IP in 5 minutes
+6. `healyx-host-suid-creation-v1.yml` — Wazuh syscheck reports a new SUID binary outside `/usr/bin`
 
 Each rule should have:
 

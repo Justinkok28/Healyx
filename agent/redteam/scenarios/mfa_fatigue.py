@@ -83,7 +83,7 @@ def run(params: dict) -> dict:
         "mitre_techniques": ["T1621", "T1078.004"],
         "expected_alerts": [
             # Sigma rule UUIDs we expect to fire
-            "ouroboros-keycloak-mfa-fatigue-v1",
+            "healyx-keycloak-mfa-fatigue-v1",
         ],
         "notes": (
             f"attempts={attempts} blocked={blocked_count} "

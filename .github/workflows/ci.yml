@@ -75,20 +75,20 @@ jobs:
           context: ./agent
           file: ./agent/redteam/Dockerfile
           push: false
-          tags: ouroboros-redteam:ci
+          tags: healyx-redteam:ci
       - name: Build triage agent image
         uses: docker/build-push-action@v5
         with:
           context: ./agent
           file: ./agent/triage/Dockerfile
           push: false
-          tags: ouroboros-triage:ci
+          tags: healyx-triage:ci
       - name: Build sage chatbot image
         uses: docker/build-push-action@v5
         with:
           context: ./chatbot/sage
           push: false
-          tags: ouroboros-sage:ci
+          tags: healyx-sage:ci
 
   compose-config:
     name: Validate docker-compose
